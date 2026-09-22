@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}今日 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="page-title">
+  <h1>今日</h1>
+  <span class="sub">{{ today }}</span>
+  <div class="spacer" style="flex:1;"></div>
+  <span class="streak"><span class="flame">🔥</span><span class="days">{{ streak }}</span><small>连续天数</small></span>
+</div>
+
+{% if not book_data %}
+<div class="card center" style="max-width:620px; margin-top:40px;">
+  <h2>先选一本词书</h2>
+  <p class="muted mt8">还没有正在学习的词书，去词书页添加一本吧。</p>
+  <div class="btn-row" style="justify-content:center;">
+    <a class="btn btn-primary btn-lg" href="/books">选择词书</a>
+  </div>
+</div>
+{% elif due_today == 0 and new_total == 0 %}
+<div class="card center" style="max-width:620px; margin-top:40px;">
+  <div style="font-size:32px;">🌟</div>
+  <h2 style="margin:8px 0;">今天都完成了，很棒</h2>
+  <p class="muted">今日任务已全部清零。</p>
+  <div class="btn-row" style="justify-content:center;">
+    <a class="btn btn-lg" href="/learn">预习明日词</a>
+    <a class="btn btn-ghost" href="/stats">查看统计</a>
+  </div>
+</div>
+{% else %}
+<div class="grid g-main">
+  <div>
+    <div class="card task-card">
+      <h2 style="font-size:15px; margin-bottom:4px;">今日任务</h2>
+      <p class="muted" style="font-size:12px;">先复习（清积压）→ 再学新词。当日任务实时保存，中途退出可续接。</p>
+
+      <div class="task-row">
+        <div>
+          <b>到期复习</b>
+          {% if due_deferred > 0 %}<span class="tag tag-warn" style="margin-left:8px;">有积压，已分批</span>{% endif %}<br>
+          <span class="muted" style="font-size:13px;">今日批次 {{ due_today }} 个</span>
+        </div>
+        <div style="text-align:right; min-width:140px;">
+          <div class="progress"><i style="width:0%"></i></div>
+          <small class="muted">{% if due_today %}{{ due_today }}{% else %}—{% endif %}{% if due_deferred %} + {{ due_deferred }} 顺延{% endif %}</small>
+        </div>
+      </div>
+
+      <div class="task-row">
+        <div>
+          <b>新词学习</b><br>
+          <span class="muted" style="font-size:13px;">每日 {{ user.daily_new_words }} 个</span>
+        </div>
+        <div style="text-align:right; min-width:140px;">
+          <div class="progress"><i style="width:0%"></i></div>
+          <small class="muted">{{ new_total }}</small>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        {% if has_review %}
+          <a class="btn btn-primary btn-lg" href="/review">先复习（{{ due_today }}）</a>
+        {% else %}
+          <a class="btn btn-primary btn-lg" href="/learn">学习新词（{{ new_total }}）</a>
+        {% endif %}
+        {% if due_deferred > 0 %}
+          <a class="btn btn-warn btn-lg" href="/backlog">查看积压</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <aside>
+    <div class="card">
+      <h3 style="font-size:15px; margin-bottom:10px;">近 7 日打卡</h3>
+      <div class="heatmap">
+        {% for c in heatmap %}
+          <div class="cell{% if c.checked %} on{% endif %}{% if loop.last %} today{% endif %}" style="outline-offset:-2px;" title="{{ c.day }}{% if c.checked %} 已打卡{% else %} 未打卡{% endif %}"></div>
+        {% endfor %}
+      </div>
+      <p class="muted mt8" style="font-size:12px;">连续 {{ streak }} 天 {% if heatmap and not heatmap[-1].checked %}· 今日待完成{% endif %}</p>
+    </div>
+    <div class="card section" style="margin-top:16px;">
+      <h3 style="font-size:15px;">今日回顾</h3>
+      <p class="muted" style="font-size:13px;">坚持就是胜利 👊</p>
+      <div class="btn-row"><a class="btn" href="/stats">查看统计</a></div>
+    </div>
+  </aside>
+</div>
+{% endif %}
+
+{% endblock %}

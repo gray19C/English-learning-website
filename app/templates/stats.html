@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}进度统计 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="page-title">
+  <h1>统计</h1>
+  <span class="sub">{{ today }}</span>
+  <div class="spacer" style="flex:1;"></div>
+  <span class="streak"><span class="flame">🔥</span><span class="days">{{ streak }}</span><small>连续天数</small></span>
+</div>
+
+<div class="grid g-3">
+  <div class="card center"><div style="font-size:26px; font-weight:700;">{{ mastered }}</div><div class="muted">已掌握（L3+）</div></div>
+  <div class="card center"><div style="font-size:26px; font-weight:700;">{{ learning }}</div><div class="muted">在学（L1/L2）</div></div>
+  <div class="card center"><div style="font-size:26px; font-weight:700;">{{ streak }}</div><div class="muted">连续天数</div></div>
+</div>
+
+<section class="section">
+  <h2>近 7 日打卡</h2>
+  <div class="card">
+    <div class="heatmap" style="max-width:420px;">
+      {% for c in heatmap %}
+        <div class="cell{% if c.checked %} on{% endif %}{% if loop.last %} today{% endif %}" title="{{ c.day }}{% if c.checked %} 已打卡{% endif %}"></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>词书进度</h2>
+  <div class="card">
+    {% for b in books %}
+    <div class="task-row">
+      <div>
+        <b>{{ b.book.name }}</b>
+        {% if b.percent >= 100 %}<span class="tag tag-green">已完成</span>{% endif %}<br>
+        <span class="muted" style="font-size:13px;">学 {{ b.learned }} / {{ b.total }} 词</span>
+      </div>
+      <div style="text-align:right; min-width:180px;">
+        <div class="progress"><i style="width:{{ b.percent }}%"></i></div>
+        <small class="muted">{{ b.percent }}%</small>
+      </div>
+    </div>
+    {% else %}
+    <p class="muted">还没有词书，去 <a href="/books">词书页</a> 添加。</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <h2>间隔规则（透明公开）</h2>
+  <div class="card">
+    <table class="spec">
+      <thead><tr><th>记忆等级</th><th>间隔</th><th>触发条件</th></tr></thead>
+      <tbody>
+        <tr><td>L1</td><td>1 天</td><td>首次学习判「模糊」；答错回落到 L1</td></tr>
+        <tr><td>L2</td><td>3 天</td><td>首次学习判「认识」；L1 复习正确</td></tr>
+        <tr><td>L3</td><td>7 天</td><td>L2 复习正确</td></tr>
+        <tr><td>L4</td><td>14 天</td><td>L3 复习正确</td></tr>
+        <tr><td>L5</td><td>30 天</td><td>L4 复习正确；之后按 30 天循环</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

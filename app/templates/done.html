@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}当日完成 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="card center" style="max-width:620px; margin:56px auto 0;">
+  <div style="font-size:40px;">✅</div>
+  <h1 style="margin:8px 0;">今日任务已完成</h1>
+  <p class="muted">连续打卡 <b style="color:var(--warn);">🔥 {{ streak }}</b> 天</p>
+  <p class="muted mt8" style="font-size:13px;">
+    {% if due_today %}今日复习 {{ due_today }} 个 · {% endif %}新词 {{ new_total }} 个
+  </p>
+  <div class="btn-row" style="justify-content:center;">
+    <a class="btn btn-primary btn-lg" href="/today">回到今日</a>
+    <a class="btn btn-lg" href="/stats">查看统计</a>
+  </div>
+</div>
+
+{% endblock %}

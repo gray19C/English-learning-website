@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}复习 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="crumbs"><a href="/today">今日</a> / 复习</div>
+<div class="page-title">
+  <h1>复习</h1>
+  <span class="sub" id="progress-text">准备中…</span>
+</div>
+
+<div class="form-item" style="max-width:620px; margin:0 auto 16px;">
+  <div class="progress"><i id="progress-bar" style="width:0%"></i></div>
+</div>
+
+<div class="card word-card" id="word-card" style="display:none; padding:40px 32px;">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <span class="tag" id="level-tag"></span>
+    <button class="btn btn-ghost" style="padding:4px 10px; font-size:12px;" onclick="openFeedback()">纠错</button>
+  </div>
+  <div class="word" id="w-word" style="margin-top:12px;"></div>
+  <div class="phonetic" id="w-phonetic"></div>
+  <p class="muted" style="font-size:12px;">释义已隐藏，从四个选项中选出正确释义</p>
+</div>
+
+<div class="choice-list mt12" id="choices" style="display:none;"></div>
+
+<div class="feedback" id="feedback"></div>
+
+<div class="btn-row" style="justify-content:center; display:none;" id="next-row">
+  <button class="btn btn-primary btn-lg" onclick="next()">下一词</button>
+</div>
+
+{% include "_feedback_modal.html" %}
+
+{% endblock %}
+{% block scripts %}
+<script>
+let queue = [], current = null, answeredCorrect = 0, total = 0;
+
+async function init() {
+  const r = await fetch('/api/review/queue');
+  const d = await r.json();
+  if (!d.ok || !d.questions.length) { location.href = '/done'; return; }
+  queue = d.questions.map(q => q);
+  total = d.questions.length;
+  show();
+}
+function show() {
+  if (!queue.length) { complete(); return; }
+  current = queue[0];
+  document.getElementById('w-word').textContent = current.text;
+  document.getElementById('w-phonetic').textContent = current.phonetic || '';
+  document.getElementById('level-tag').textContent = '四选一 · 答对升级间隔';
+  document.getElementById('word-card').style.display = 'block';
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('next-row').style.display = 'none';
+
+  const host = document.getElementById('choices');
+  host.innerHTML = '';
+  host.style.display = 'grid';
+  current.options.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.textContent = o.text;
+    btn.onclick = () => answer(o.word_id, btn);
+    host.appendChild(btn);
+  });
+  updateProgress();
+}
+async function answer(choiceId, btnEl) {
+  document.querySelectorAll('#choices .choice').forEach(b => b.disabled = true);
+  const body = { book_id: current.book_id, word_id: current.word_id, choice_word_id: choiceId };
+  const r = await fetch('/api/review/answer', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+  const d = await r.json();
+
+  const fb = document.getElementById('feedback');
+  if (d.correct) {
+    answeredCorrect++;
+    btnEl.classList.add('correct');
+    fb.className = 'feedback correct show';
+    fb.textContent = '答对 🎉 等级 L' + d.level_after + '，下次约 ' + (d.level_after>=5?'30':'') + (d.level_after<5 ? intervalText(d.level_after) : '') + ' 天后复习';
+  } else {
+    btnEl.classList.add('wrong');
+    const correctBtn = document.querySelector('#choices .choice');
+    fb.className = 'feedback wrong show';
+    fb.innerHTML = '答错了。正确答案：<b>' + (d.correct_definition || '') + '</b>。这个词回到本轮队尾，明日优先复习。(L→L1)';
+    queue.push(current); // 答错 → 回到今日队尾直至答对
+  }
+  document.getElementById('next-row').style.display = 'flex';
+}
+function intervalText(level) {
+  const t = [null,1,3,7,14,30];
+  return ' ' + t[level];
+}
+function next() {
+  queue.shift();
+  show();
+}
+function updateProgress() {
+  document.getElementById('progress-text').textContent = '本轮 ' + answeredCorrect + ' 答对 / 剩余 ' + queue.length;
+  document.getElementById('progress-bar').style.width = (answeredCorrect / Math.max(1,total) * 100) + '%';
+}
+async function complete() {
+  document.getElementById('word-card').style.display = 'none';
+  document.getElementById('choices').style.display = 'none';
+  document.getElementById('next-row').style.display = 'none';
+  document.getElementById('progress-text').textContent = '复习完成 ✅';
+  await fetch('/api/review/complete', {method:'POST'});
+  location.href = '/done';
+}
+function openFeedback() {
+  openFeedbackModal(current.book_id, current.word_id, 'review');
+}
+init();
+</script>
+{% endblock %}

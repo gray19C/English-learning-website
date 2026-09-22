@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}英语学习网站{% endblock %}</title>
+<link rel="stylesheet" href="/static/style.css">
+{% block head %}{% endblock %}
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/">英语学习网站</a>
+    {% if user %}
+      <nav class="topnav">
+        <a href="/today">今日</a>
+        <a href="/stats">统计</a>
+        <a href="/books">词书</a>
+        <a href="/settings">设置</a>
+      </nav>
+      <div class="spacer"></div>
+      <span class="user-pill">{{ user.email }}</span>
+      <form method="post" action="/api/logout" style="display:inline">
+        <button class="btn btn-ghost">退出</button>
+      </form>
+    {% else %}
+      <div class="spacer"></div>
+      <a class="btn btn-ghost" href="/login">登录</a>
+      <a class="btn btn-primary" href="/signup">注册</a>
+    {% endif %}
+  </div>
+</div>
+
+<main class="wrap">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>© 2026 英语学习网站 · MVP</span>
+    <span>词条数据来源：ECDICT（MIT License）</span>
+  </div>
+</footer>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}登录 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="page-title"><h1>登录</h1><span class="sub">多设备进度以服务端为准</span></div>
+
+<div class="card" style="max-width:420px;">
+  <div class="alert" id="alert"></div>
+  <div class="form-item">
+    <label>邮箱</label>
+    <input class="field" id="email" type="email" placeholder="you@example.com" autocomplete="email">
+  </div>
+  <div class="form-item">
+    <label>密码</label>
+    <input class="field" id="password" type="password" placeholder="••••••" autocomplete="current-password">
+  </div>
+  <button class="btn btn-primary btn-block btn-lg" id="submit">登录</button>
+  <p class="muted mt12 center" style="font-size:13px;">还没有账号？<a href="/signup">去注册</a></p>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById('submit').addEventListener('click', async () => {
+  const alert = document.getElementById('alert');
+  alert.className = 'alert';
+  const body = {
+    email: document.getElementById('email').value.trim(),
+    password: document.getElementById('password').value,
+  };
+  const r = await fetch('/api/login', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+  const d = await r.json();
+  if (!d.ok) { alert.textContent = d.error || '登录失败'; alert.className = 'alert error'; return; }
+  location.href = '/today';
+});
+</script>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}首次设置 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="page-title"><h1>首次设置</h1><span class="sub">选好词书就能开始</span></div>
+
+<div class="alert" id="alert"></div>
+
+<div class="card mb12" style="max-width:720px;">
+  <h3 style="font-size:15px; margin-bottom:12px;">选择词书（当前至少一本）</h3>
+  <div class="grid g-3" id="book-list">
+    {% for b in books %}
+    <div class="opt" data-book="{{ b.id }}" data-slug="{{ b.slug }}">
+      <b>{{ b.name }}</b><br>
+      <span class="muted" style="font-size:12px;">{{ b.word_count }} 词 · {{ b.difficulty }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="card mb12" style="max-width:720px;">
+  <h3 style="font-size:15px; margin-bottom:12px;">每日新词数</h3>
+  <div class="opt-row" id="word-count">
+    <div class="opt" data-n="10">10</div>
+    <div class="opt sel" data-n="20">20</div>
+    <div class="opt" data-n="30">30</div>
+    <div class="opt" data-n="50">50</div>
+  </div>
+</div>
+
+<div class="card mb12" style="max-width:720px;">
+  <div class="form-item" style="margin:0;">
+    <label>小目标（可选）：这本词书只背前 N 个词</label>
+    <input class="field" id="goal" type="number" placeholder="留空 = 背完整本">
+  </div>
+</div>
+
+<div class="btn-row" style="max-width:720px;">
+  <button class="btn btn-primary btn-lg" id="submit">完成，开始学习</button>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+let bookId = null;
+document.querySelectorAll('#book-list .opt').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('#book-list .opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    bookId = parseInt(el.dataset.book);
+  });
+});
+let count = 20;
+document.querySelectorAll('#word-count .opt').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('#word-count .opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    count = parseInt(el.dataset.n);
+  });
+});
+
+document.getElementById('submit').addEventListener('click', async () => {
+  const alert = document.getElementById('alert');
+  alert.className = 'alert';
+  if (!bookId) { alert.textContent = '请选择一本词书'; alert.className = 'alert error'; return; }
+  let guest = [];
+  try { guest = JSON.parse(localStorage.getItem('guest_progress') || '[]'); } catch(e) {}
+  const goal = parseInt(document.getElementById('goal').value) || null;
+  const body = { daily_new_words: count, book_id: bookId, small_goal: goal, guest_progress: guest };
+  const r = await fetch('/api/onboarding', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+  const d = await r.json();
+  if (!d.ok) { alert.textContent = d.error || '设置失败'; alert.className = 'alert error'; return; }
+  localStorage.removeItem('guest_progress');
+  location.href = '/today';
+});
+</script>
+{% endblock %}

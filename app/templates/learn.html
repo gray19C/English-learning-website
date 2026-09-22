@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}学习新词 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="crumbs"><a href="/today">今日</a> / 学习新词</div>
+<div class="page-title">
+  <h1>学习新词</h1>
+  <span class="sub" id="progress-text">准备中…</span>
+</div>
+
+<div class="form-item" style="max-width:620px; margin:0 auto 16px;">
+  <div class="progress"><i id="progress-bar" style="width:0%"></i></div>
+</div>
+
+<div class="card word-card" id="word-card" style="display:none;">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <span class="tag">本轮待巩固：本轮内必须记住</span>
+    <button class="btn btn-ghost" style="padding:4px 10px; font-size:12px;" onclick="openFeedback()">纠错</button>
+  </div>
+  <div class="word mt12" id="w-word"></div>
+  <div class="phonetic" id="w-phonetic"></div>
+  <div class="def" id="w-def"></div>
+  <div class="example" id="w-example"></div>
+</div>
+
+<div class="rate-row" id="rate-row" style="display:none;">
+  <button class="rate-btn" data-r="known"><b>认识</b><small>加入复习（3 天后）</small></button>
+  <button class="rate-btn" data-r="fuzzy"><b>模糊</b><small>加入复习（1 天后）</small></button>
+  <button class="rate-btn" data-r="unknown"><b>不认识</b><small>本轮末会再出现</small></button>
+</div>
+
+{% include "_feedback_modal.html" %}
+
+{% endblock %}
+{% block scripts %}
+<script>
+let queue = [], cards = {}, finished = 0, total = 0;
+
+async function init() {
+  const r = await fetch('/api/learn/queue');
+  const d = await r.json();
+  if (!d.ok || !d.items.length) { location.href = '/done'; return; }
+  queue = d.items.map(it => it);
+  cards = {}; d.items.forEach(it => cards[it.word_id] = it);
+  total = d.items.length;
+  render();
+}
+function render() {
+  if (!queue.length) { complete(); return; }
+  const it = queue[0]; const c = it.card;
+  document.getElementById('w-word').textContent = c.text;
+  document.getElementById('w-phonetic').textContent = (c.phonetic ? c.phonetic + ' · ' : '') + c.pos;
+  document.getElementById('w-def').textContent = c.definition || '';
+  document.getElementById('w-example').textContent = c.example ? '“' + c.example + '”' : '';
+  document.getElementById('word-card').style.display = 'block';
+  document.getElementById('rate-row').style.display = 'grid';
+  window._cur = it;
+  updateProgress();
+}
+async function rate(rating) {
+  const it = queue[0];
+  const body = { book_id: it.book_id, word_id: it.word_id, rating };
+  try { await fetch('/api/learn/answer', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)}); } catch(e) {}
+  queue.shift();
+  if (rating === 'unknown') {
+    queue.push(it); // 轮末重现
+  } else {
+    finished++;
+  }
+  render();
+}
+function updateProgress() {
+  document.getElementById('progress-text').textContent = '完成 ' + finished + ' / ' + total;
+  document.getElementById('progress-bar').style.width = (finished / total * 100) + '%';
+}
+async function complete() {
+  document.getElementById('word-card').style.display = 'none';
+  document.getElementById('rate-row').style.display = 'none';
+  document.getElementById('progress-text').textContent = '本轮完成 ✅';
+  await fetch('/api/learn/complete', {method:'POST'});
+  location.href = '/done';
+}
+function openFeedback() {
+  const it = window._cur || {};
+  openFeedbackModal(it.book_id, it.word_id, 'learn');
+}
+document.querySelectorAll('#rate-row .rate-btn').forEach(b => b.addEventListener('click', () => rate(b.dataset.r)));
+init();
+</script>
+{% endblock %}

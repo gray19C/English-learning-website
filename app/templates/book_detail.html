@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ book.name }} - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="crumbs"><a href="/">首页</a> / 词书详情</div>
+<div class="page-title">
+  <h1>{{ book.name }}</h1>
+  <span class="tag tag-blue">{{ book.difficulty }}</span>
+  <div class="spacer" style="flex:1;"></div>
+  <a class="btn btn-primary" href="/trial">直接试学 5 词</a>
+</div>
+
+<div class="grid g-main-wide">
+  <div>
+    <div class="card section" style="margin-top:0;">
+      <h2 style="font-size:15px;">词书信息</h2>
+      <p>{{ book.description }}</p>
+      <p class="mt12"><b>{{ book.word_count }}</b> 个词 · 按词频降序排列（高频先背）</p>
+    </div>
+    <div class="card section">
+      <h2 style="font-size:15px;">词条预览 <small>前 50 词</small></h2>
+      <table class="spec">
+        <thead><tr><th>#</th><th>单词</th><th>音标</th><th>释义</th></tr></thead>
+        <tbody>
+        {% for p in preview %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ p.word }} <span class="muted">{{ p.pos }}</span></td>
+            <td class="muted">{{ p.phonetic }}</td>
+            <td>{{ p.definition }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <aside>
+    <div class="card">
+      <h3 style="font-size:15px;">数据来源与许可</h3>
+      <p class="mt8 muted" style="font-size:13px;">词条来自开源词库 <b>ECDICT</b>（MIT License），释义优先考试高频义。</p>
+      <p class="mt8 muted" style="font-size:13px;">完整学习进度需注册后保存。</p>
+    </div>
+  </aside>
+</div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}学习设置 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="page-title"><h1>设置</h1><span class="sub">修改次日生效，当日已生成的任务不中断</span></div>
+
+<div class="alert" id="alert"></div>
+
+<div class="grid g-main-wide">
+  <div>
+    <div class="card">
+      <h3 style="font-size:15px; margin-bottom:12px;">每日新词数</h3>
+      <div class="opt-row" id="word-count">
+        <div class="opt{% if user.daily_new_words == 10 %} sel{% endif %}" data-n="10">10</div>
+        <div class="opt{% if user.daily_new_words == 20 %} sel{% endif %}" data-n="20">20</div>
+        <div class="opt{% if user.daily_new_words == 30 %} sel{% endif %}" data-n="30">30</div>
+        <div class="opt{% if user.daily_new_words == 50 %} sel{% endif %}" data-n="50">50</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="saveCount()">保存</button>
+      </div>
+    </div>
+
+    <div class="card section">
+      <h3 style="font-size:15px;">词书管理</h3>
+      <p class="muted" style="font-size:13px;">添加 / 切换 / 暂停词书请到 <a href="/books">词书页</a>。各词书进度完全独立。</p>
+      <p class="muted" style="font-size:13px;">当前每日新词数 <b>{{ user.daily_new_words }}</b> 个。</p>
+    </div>
+  </div>
+
+  <aside>
+    <div class="card">
+      <h3 style="font-size:15px; margin-bottom:8px;">间隔规则（透明公开）</h3>
+      <table class="spec" style="font-size:12px;">
+        <thead><tr><th>等级</th><th>间隔</th></tr></thead>
+        <tbody>
+          <tr><td>L1</td><td>1 天</td></tr>
+          <tr><td>L2</td><td>3 天</td></tr>
+          <tr><td>L3</td><td>7 天</td></tr>
+          <tr><td>L4</td><td>14 天</td></tr>
+          <tr><td>L5</td><td>30 天</td></tr>
+        </tbody>
+      </table>
+      <p class="muted mt8 center" style="font-size:12px;">算法公开、可解释；答错回 L1 并当日重练。</p>
+    </div>
+  </aside>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+let count = {{ user.daily_new_words }};
+document.querySelectorAll('#word-count .opt').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('#word-count .opt').forEach(o => o.classList.remove('sel'));
+    el.classList.add('sel');
+    count = parseInt(el.dataset.n);
+  });
+});
+async function saveCount() {
+  const alert = document.getElementById('alert'); alert.className = 'alert';
+  const r = await fetch('/api/settings', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({daily_new_words: count})});
+  const d = await r.json();
+  if (d.ok) { alert.textContent = '已保存，次日生效 ✅'; alert.className = 'alert'; }
+  else { alert.textContent = d.error || '保存失败'; alert.className = 'alert error'; }
+}
+</script>
+{% endblock %}

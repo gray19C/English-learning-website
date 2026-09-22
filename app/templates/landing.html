@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}英语学习网站 - 高频词先背，透明复习，无压力回归{% endblock %}
+{% block content %}
+
+<div class="hero">
+  <h1>把「记住单词」这件事做到极致</h1>
+  <p>Web 端背单词，浏览器即用。词频降序高频先背，间隔规则全透明，缺席回来分批容错、不施压。</p>
+  <div class="btn-row" style="justify-content:center; margin-top:0;">
+    <a class="btn btn-primary btn-lg" href="/trial">游客先试学 5 个词</a>
+    <a class="btn btn-lg" href="/signup">注册开始学习</a>
+  </div>
+</div>
+
+<section class="section">
+  <h2>为什么选择我们</h2>
+  <div class="grid g-3">
+    <div class="card">
+      <div class="feature-icon">📱</div>
+      <h3 style="margin:8px 0 4px;">浏览器即用</h3>
+      <p class="muted">无需下载 App，手机、电脑打开就用，快进快出。</p>
+    </div>
+    <div class="card">
+      <div class="feature-icon">📈</div>
+      <h3 style="margin:8px 0 4px;">算法透明</h3>
+      <p class="muted">间隔规则公开：1 / 3 / 7 / 14 / 30 天递增，你可感知、可掌控。</p>
+    </div>
+    <div class="card">
+      <div class="feature-icon">🛟</div>
+      <h3 style="margin:8px 0 4px;">缺席不施压</h3>
+      <p class="muted">断几天回来，积压分批摊开慢慢追平，没有惩罚感。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>内置词书 <small>按词频降序，高频先背</small></h2>
+  <div class="grid g-3">
+    {% for b in books %}
+    <div class="card">
+      <h3 style="margin-bottom:4px;">{{ b.name }}</h3>
+      <p class="muted" style="font-size:13px;">{{ b.description }}</p>
+      <div style="margin-top:12px;">
+        <a class="btn" href="/books/{{ b.slug }}">查看词书</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <h2>三步入门</h2>
+  <div class="grid g-3">
+    <div class="card"><b>① 试学</b><p class="muted mt8">游客先学 5 个词，先给正反馈。</p></div>
+    <div class="card"><b>② 注册</b><p class="muted mt8">1 分钟注册，游客进度无缝合并。</p></div>
+    <div class="card"><b>③ 养成</b><p class="muted mt8">每天 10-15 分钟清任务，连续打卡看得见。</p></div>
+  </div>
+</section>
+
+{% endblock %}

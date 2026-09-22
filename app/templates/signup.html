@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}注册 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="page-title"><h1>注册</h1><span class="sub">1 分钟完成，游客进度无缝合并</span></div>
+
+<div class="card" style="max-width:420px;">
+  <div class="alert" id="alert"></div>
+  <div class="form-item">
+    <label>邮箱</label>
+    <input class="field" id="email" type="email" placeholder="you@example.com" autocomplete="email">
+  </div>
+  <div class="form-item">
+    <label>密码（至少 6 位）</label>
+    <input class="field" id="password" type="password" placeholder="••••••" autocomplete="new-password">
+  </div>
+  <div class="form-item">
+    <label>昵称（可选）</label>
+    <input class="field" id="nickname" type="text" placeholder="怎么称呼你">
+  </div>
+  <div class="form-item">
+    <label><input type="checkbox" id="merge" checked> 合并我的游客试学进度到新账号</label>
+  </div>
+  <button class="btn btn-primary btn-block btn-lg" id="submit">注册</button>
+  <p class="muted mt12 center" style="font-size:13px;">已有账号？<a href="/login">去登录</a></p>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+const mergeBox = document.getElementById('merge');
+document.getElementById('submit').addEventListener('click', async () => {
+  const alert = document.getElementById('alert');
+  alert.className = 'alert';
+  const body = {
+    email: document.getElementById('email').value.trim(),
+    password: document.getElementById('password').value,
+    nickname: document.getElementById('nickname').value.trim() || null,
+  };
+  const r = await fetch('/api/signup', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+  const d = await r.json();
+  if (!d.ok) { alert.textContent = d.error || '注册失败'; alert.className = 'alert error'; return; }
+  if (!mergeBox.checked) { localStorage.removeItem('guest_progress'); }
+  location.href = '/onboarding';
+});
+</script>
+{% endblock %}

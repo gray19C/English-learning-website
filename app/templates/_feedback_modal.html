@@ -1,0 +1,33 @@
+<div class="modal-mask" id="feedback-mask">
+  <div class="modal">
+    <span class="close" onclick="closeFeedbackModal()">✕</span>
+    <h3>提交词条纠错</h3>
+    <p class="muted">帮助我们修正词条数据，感谢你的贡献。</p>
+    <div class="form-item mt12">
+      <label>问题描述（可选）</label>
+      <textarea class="field" id="feedback-note" rows="3" placeholder="例如：释义不够准确 / 例句有问题…"></textarea>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="sendFeedback()">提交</button>
+    <p class="muted mt8 center" style="font-size:12px;" id="feedback-msg"></p>
+  </div>
+</div>
+
+<div id="feedback-js" style="display:none;"></div>
+<script>
+let _fb = { book_id: null, word_id: null, mode: 'learn' };
+function openFeedbackModal(bookId, wordId, mode) {
+  _fb = { book_id: bookId, word_id: wordId, mode: mode || 'learn' };
+  document.getElementById('feedback-note').value = '';
+  document.getElementById('feedback-msg').textContent = '';
+  document.getElementById('feedback-mask').classList.add('show');
+}
+function closeFeedbackModal() {
+  document.getElementById('feedback-mask').classList.remove('show');
+}
+async function sendFeedback() {
+  const note = document.getElementById('feedback-note').value.trim();
+  const r = await fetch('/api/feedback', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({..._fb, note: note || null})});
+  const d = await r.json();
+  document.getElementById('feedback-msg').textContent = d.ok ? '已提交，感谢反馈 ✅' : (d.error || '提交失败');
+}
+</script>

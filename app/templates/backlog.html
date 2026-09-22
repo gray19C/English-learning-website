@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}缺席回归 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="crumbs"><a href="/today">今日</a> / 缺席回归</div>
+<div class="page-title"><h1>欢迎回来</h1><span class="sub">几天不见，积压不用怕，我们分批来</span></div>
+
+<div class="card" style="max-width:620px;">
+  <div class="grid g-3 mb12">
+    <div class="card" style="text-align:center;"><div style="font-size:22px; font-weight:700;">{{ due_total }}</div><div class="muted">到期积压</div></div>
+    <div class="card" style="text-align:center;"><div style="font-size:22px; font-weight:700;">{{ due_today }}</div><div class="muted">今日批次</div></div>
+    <div class="card" style="text-align:center;"><div style="font-size:22px; font-weight:700;">{{ due_deferred }}</div><div class="muted">顺延后续</div></div>
+  </div>
+  <div class="feedback correct show">不着急，也绝不惩罚。每日最多消化 {{ review_cap }} 个，追得回来 💪</div>
+  <div class="btn-row" style="justify-content:center;">
+    <a class="btn btn-primary btn-lg" href="/review">先复习今日批次（{{ due_today }}）</a>
+    <a class="btn btn-lg" href="/learn">先学新词（{{ new_total }}）</a>
+  </div>
+</div>
+
+{% endblock %}

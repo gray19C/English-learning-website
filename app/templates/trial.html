@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}游客试学 5 词 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="crumbs"><a href="/">首页</a> / 游客试学</div>
+<div class="page-title">
+  <h1>试学 5 个词</h1>
+  <span class="sub">记住当场记牢的老规矩：不认识的词会在本轮反复出现</span>
+</div>
+
+<div class="form-item" style="max-width:620px; margin:0 auto 16px;">
+  <div class="muted mb12" id="progress-text">完成 0 / 5</div>
+  <div class="progress"><i id="progress-bar" style="width:0%"></i></div>
+</div>
+
+<div class="card word-card" id="word-card" style="display:none;">
+  <div class="word" id="w-word"></div>
+  <div class="phonetic" id="w-phonetic"></div>
+  <div class="pos" id="w-pos"></div>
+  <div class="def" id="w-def"></div>
+  <div class="example" id="w-example"></div>
+</div>
+
+<div class="rate-row" id="rate-row" style="display:none;">
+  <button class="rate-btn" data-r="known"><b>认识</b><small>直接加入复习</small></button>
+  <button class="rate-btn" data-r="fuzzy"><b>模糊</b><small>记得但不确定</small></button>
+  <button class="rate-btn" data-r="unknown"><b>不认识</b><small>本轮末会再出现</small></button>
+</div>
+
+<div class="card center mt16" id="done-box" style="display:none; max-width:620px; margin-left:auto; margin-right:auto;">
+  <div style="font-size:32px;">🎉</div>
+  <h2 style="margin:8px 0;">已记住 5 个新词</h2>
+  <p class="muted">注册后进度无缝合并，继续背下去吧。</p>
+  <div class="btn-row" style="justify-content:center;">
+    <a class="btn btn-primary btn-lg" href="/signup">注册保存进度</a>
+    <a class="btn btn-lg" href="/">先逛逛</a>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+let queue = [], cards = {}, bookId = null, done = 0, total = 0;
+
+async function init() {
+  const r = await fetch('/api/guest/queue');
+  const d = await r.json();
+  if (!d.ok) { return; }
+  bookId = d.book_id; total = d.items.length;
+  d.items.forEach(c => cards[c.id] = c);
+  queue = d.items.map(c => c.id);
+  render();
+}
+function render() {
+  if (!queue.length) { finish(); return; }
+  const id = queue[0]; const c = cards[id];
+  document.getElementById('w-word').textContent = c.text;
+  document.getElementById('w-phonetic').textContent = (c.phonetic ? c.phonetic + ' · ' : '') + c.pos;
+  document.getElementById('w-pos').textContent = '';
+  document.getElementById('w-def').textContent = c.definition || '';
+  document.getElementById('w-example').textContent = c.example ? '“' + c.example + '”' : '';
+  document.getElementById('word-card').style.display = 'block';
+  document.getElementById('rate-row').style.display = 'grid';
+  document.getElementById('done-box').style.display = 'none';
+  updateProgress();
+}
+async function rate(rating) {
+  const id = queue[0];
+  try { await fetch('/api/guest/answer', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name:'guest_rating', props:{word_id:id, rating, book_id:bookId}})}); } catch(e) {}
+  if (rating !== 'unknown') {
+    done++;
+    let prog = []; try { prog = JSON.parse(localStorage.getItem('guest_progress') || '[]'); } catch(e) {}
+    prog.push({word_id:id, book_id:bookId, result:rating});
+    localStorage.setItem('guest_progress', JSON.stringify(prog));
+  }
+  queue.shift();
+  if (rating === 'unknown') queue.push(id);
+  render();
+}
+function updateProgress() {
+  document.getElementById('progress-text').textContent = '完成 ' + done + ' / ' + total;
+  document.getElementById('progress-bar').style.width = (done / total * 100) + '%';
+}
+function finish() {
+  document.getElementById('word-card').style.display = 'none';
+  document.getElementById('rate-row').style.display = 'none';
+  document.getElementById('done-box').style.display = 'block';
+}
+document.querySelectorAll('#rate-row .rate-btn').forEach(b => b.addEventListener('click', () => rate(b.dataset.r)));
+init();
+</script>
+{% endblock %}

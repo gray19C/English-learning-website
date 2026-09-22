@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}词书 - 英语学习网站{% endblock %}
+{% block content %}
+
+<div class="page-title"><h1>词书</h1><span class="sub">各词书队列独立、进度互不干扰，可并行学习</span></div>
+
+<div class="alert" id="alert"></div>
+
+{% set active_ids = stats.books | map(attribute='book.id') | list %}
+
+<div class="grid g-3">
+  {% for b in books_all %}
+    {% set prog = stats.books | selectattr('book.id', 'equalto', b.id) | list %}
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="font-size:16px;">{{ b.name }}</h3>
+        {% if b.id in active_ids %}<span class="tag tag-blue">学习中</span>{% else %}<span class="tag">未启用</span>{% endif %}
+      </div>
+      <p class="muted" style="font-size:13px; margin-top:4px;">{{ b.description }}</p>
+      <p class="muted" style="font-size:13px;">{{ b.word_count }} 词 · {{ b.difficulty }}</p>
+      {% if prog %}
+        {% set p = prog[0] %}
+        <div class="mt12">
+          <div class="progress"><i style="width:{{ p.percent }}%"></i></div>
+          <small class="muted">{{ p.learned }} / {{ p.total }}</small>
+        </div>
+      {% else %}
+        <div class="mt12">
+          <div class="progress"><i style="width:0%"></i></div>
+        </div>
+      {% endif %}
+      <div class="btn-row">
+        <a class="btn" href="/books/{{ b.slug }}">详情</a>
+        {% if b.id in active_ids %}
+          <button class="btn" onclick="toggle({{ b.id }}, false)">暂停</button>
+        {% else %}
+          <button class="btn btn-primary" onclick="toggle({{ b.id }}, true)">启用</button>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+async function toggle(bookId, activate) {
+  const alert = document.getElementById('alert'); alert.className = 'alert';
+  const url = activate ? '/api/books/activate' : '/api/books/deactivate';
+  const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({book_id: bookId})});
+  const d = await r.json();
+  if (d.ok) { location.reload(); }
+  else { alert.textContent = d.error || '操作失败'; alert.className = 'alert error'; }
+}
+</script>
+{% endblock %}

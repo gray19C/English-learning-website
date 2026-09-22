@@ -1,11 +1,13 @@
-# 系统与编辑器
-.DS_Store
-Thumbs.db
-
-# Python
+.venv/
 __pycache__/
 *.py[cod]
-.venv/
+.pytest_cache/
+.env
 
-# Word 临时锁文件
+# 本地数据（ECDICT 原始词表较大，不入库）
+data/
+*.db
+*.sqlite
+
+# Word 锁文件
 ~$*.docx
