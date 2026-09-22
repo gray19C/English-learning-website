@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新词学习（卡片 + 三态自评）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px · 学习卡片居中 ≤620px，侧栏待巩固列表</span><span>360px → 卡片全宽、待巩固列表收折</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <nav class="topnav">
+      <a href="06_today.html"><b>今日</b></a>
+      <a href="11_stats.html">统计</a>
+      <a href="12_settings.html">设置</a>
+    </nav>
+    <div class="spacer"></div>
+    <span class="user-pill">stu@example.com</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="crumbs">今日 / 新词学习 <span style="color:var(--gray-4)">· 四级核心</span></div>
+  <div class="page-title">
+    <h1>学习新词</h1>
+    <span class="sub">本轮 3 / 20 · 已记住 2 · 待巩固 1</span>
+  </div>
+
+  <div class="note">
+    <b>FR-04 设计要点：</b>「不认识」的词本轮末自动重现，直到记成「认识/模糊」——保证每次学习都有记忆发生。释义默认全量可见（学习模式不藏答案，与复习模式相反）。每词只呈现一条释义（优先考试高频义）。
+  </div>
+
+  <section class="grid g-main-wide">
+    <div>
+      <div class="word-card">
+        <div class="word">persistent</div>
+        <div class="phonetic">音标 /pəˈsɪstənt/ · 词性 adj.</div>
+        <div class="def">坚持的；持续存在的</div>
+        <div class="example">Persistent efforts lead to success.</div>
+        <div style="margin-top:14px;">
+          <span class="tag">词频 #486</span>
+          <a class="btn btn-ghost" href="14_feedback.html">⚠ 反馈</a>
+        </div>
+      </div>
+
+      <div class="btn-row" style="justify-content:center; margin-top:20px;">
+        <a class="btn btn-lg" href="07_new_word.html">认识 → 复习间隔 3 天</a>
+        <a class="btn btn-lg" href="07_new_word.html">模糊 → 1 天后再见</a>
+        <a class="btn btn-lg btn-primary" href="07_new_word.html">不认识 → 本轮末重现</a>
+      </div>
+
+      <div class="note" style="margin-top:20px;">
+        <b>交互演示（本轮重现）：</b>已选「不认识」的词在本轮结尾再次进卡（允许用户选择“跳过本轮”的仅是特殊情况，MVP 不跳过）。本轮待巩固：<b>persistent</b>。
+      </div>
+
+      <div class="btn-row" style="justify-content:center;">
+        <a class="btn" href="09_done.html">[本轮 20 词完成] → 本节完成</a>
+        <a class="btn btn-ghost" href="06_today.html">退出（进度实时保存）</a>
+      </div>
+    </div>
+
+    <aside>
+      <div class="card">
+        <h3 style="font-size:15px; margin-bottom:10px;">本轮待巩固</h3>
+        <ul style="font-size:13px; color:var(--gray-5); margin-left:18px;">
+          <li><b>persistent</b> 〈不认识 · 轮末重现〉</li>
+          <li>profound  〈模糊 · 稍后重现一次〉</li>
+        </ul>
+        <p style="font-size:12px; color:var(--gray-4); margin-top:8px;">待巩固词不跳过，直到本轮内记成「认识/模糊」。</p>
+      </div>
+      <div class="card section">
+        <h3 style="font-size:15px;">本日新词 20 个</h3>
+        <div class="progress"><i style="width:15%"></i></div>
+        <small style="color:var(--gray-4)">3/20</small>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<footer class="footer"><div class="wrap"><span>新词学习页（FR-04 / F4）</span><span>里程碑 M2：首 5 词试学 → 注册 → 首学闭环</span></div></footer>
+</body>
+</html>

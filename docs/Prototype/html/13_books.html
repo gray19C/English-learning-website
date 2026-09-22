@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>词书列表与切换</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px · 词书卡片三列</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <nav class="topnav">
+      <a href="06_today.html">今日</a>
+      <a href="11_stats.html">统计</a>
+      <a href="13_books.html"><b>词书</b></a>
+      <a href="12_settings.html">设置</a>
+    </nav>
+    <div class="spacer"></div>
+    <span class="user-pill">stu@example.com</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="page-title"><h1>词书</h1><span class="sub">每本词书独立维护复习队列与间隔状态；同一单词跨词书各自记账，不做去重合并（FR-11）</span></div>
+
+  <div class="note">
+    <b>FR-11 词书切换：</b>添加新词书从第 1 词开始学，原词书复习队列继续并行；今日已生成的任务不因切换被覆盖。切回旧词书进度分毫不丢（验收）。
+  </div>
+
+  <section class="grid g-3" style="margin-top:12px;">
+    <div class="card">
+      <span class="tag tag-blue">学习中</span>
+      <h3 style="margin:8px 0 6px;">四级核心</h3>
+      <p style="font-size:13px; color:var(--gray-5);">约 2500 词 · 已完成 628 · 25%</p>
+      <div class="progress"><i style="width:25%"></i></div>
+      <div class="btn-row"><a class="btn" href="06_today.html">继续学习</a></div>
+    </div>
+    <div class="card">
+      <span class="tag tag-warn">进行中 · 第 3 天</span>
+      <h3 style="margin:8px 0 6px;">六级</h3>
+      <p style="font-size:13px; color:var(--gray-5);">约 3500 词（含四级） · 已学 48 · 2%</p>
+      <div class="progress"><i style="width:2%"></i></div>
+      <div class="btn-row"><a class="btn" href="07_new_word.html">从第 1 个新词继续</a></div>
+    </div>
+    <div class="card">
+      <span class="tag">未选择</span>
+      <h3 style="margin:8px 0 6px;">考研高频</h3>
+      <p style="font-size:13px; color:var(--gray-5);">约 3000 词 · 预计 150 天（每日 20 词）</p>
+      <div class="progress"><i style="width:0%"></i></div>
+      <div class="btn-row"><a class="btn btn-primary" href="07_new_word.html">添加并开始</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>切换流程标注</h2>
+    <div class="card">
+      <ol style="margin-left:18px; font-size:13px; color:var(--gray-5);">
+        <li>在「统计 或 设置」中点「添加词书」</li>
+        <li>选择词书 + 可选小目标，确认后新词书从第 1 词开始（01/05 已示范小目标选择）</li>
+        <li>原词书复习队列保留并行，A 书复习不受 B 书影响</li>
+        <li>统计页合并展示总掌握率（11_stats）</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><div class="wrap"><span>词书列表/切换（FR-11 / F10 / F11）</span><span>埋点：add_book / switch_book</span></div></footer>
+</body>
+</html>

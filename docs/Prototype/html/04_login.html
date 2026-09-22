@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登录 <英语学习网站></title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px · 登录表单居中卡片 ≤480px</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <div class="spacer"></div>
+    <span class="user-pill">新用户？<a href="03_signup.html">注册</a></span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="note" style="max-width:480px; margin:16px auto;">
+    <b>登录后任意设备进度一致（用户故事 P0）：</b>同一账号多设备，进度以服务端为准，冲突取最近学习记录合并。
+  </div>
+
+  <section class="card" style="max-width:480px; margin:0 auto;">
+    <h1 style="font-size:22px; margin-bottom:18px;">登录</h1>
+    <div class="form-item">
+      <label>邮箱</label>
+      <input class="field" type="email" placeholder="you@example.com">
+    </div>
+    <div class="form-item">
+      <label>密码</label>
+      <input class="field" type="password" placeholder="••••••••">
+    </div>
+    <a class="btn btn-primary btn-lg btn-block" href="06_today.html">登录 → 今日首页</a>
+    <p style="text-align:center; margin-top:12px; font-size:13px;">
+      <a href="#" style="color:var(--gray-5);">忘记密码</a>（MVP 简化处理，见 FR-01 边界）
+    </p>
+  </section>
+</main>
+
+<footer class="footer"><div class="wrap"><span>登录页（FR-01）</span><span>服务端校验时间 · 防刷打卡</span></div></footer>
+</body>
+</html>

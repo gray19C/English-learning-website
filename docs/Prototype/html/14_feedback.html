@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>纠错反馈（弹层）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>弹层 ≤480px · 居中遮罩；路径 ≤2 步（FR-10 验收）</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <nav class="topnav">
+      <a href="06_today.html"><b>今日</b></a>
+      <a href="11_stats.html">统计</a>
+      <a href="12_settings.html">设置</a>
+    </nav>
+    <div class="spacer"></div>
+    <span class="user-pill">stu@example.com</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="page-title"><h1>纠错反馈弹层</h1><span class="sub">示出于学习/复习卡片右上角「⚠ 反馈」入口，本页呈现弹层本体（模拟遮罩）</span></div>
+
+  <div class="note">
+    <b>FR-10 业务规则：</b>反馈内容含位置快照（词 / 词书 / 模式：新词 or 复习）；提交进入运营后台队列审核（MVP 后台可极简表格）。提交路径 ≤ 2 步（点图标 → 本表单 → 提交）。
+  </div>
+
+  <div class="modal-mask" style="position:relative; inset:auto; background:none; align-items:flex-start;">
+    <div class="modal" style="margin:auto;">
+      <div class="close">✕</div>
+      <h3>反馈词条问题</h3>
+      <p style="font-size:12px; color:var(--gray-5); margin-bottom:14px;">
+        位置快照：<b>persistent</b> · 四级核心 · <span class="tag">新词模式</span>
+      </p>
+      <div class="form-item">
+        <label>问题类型</label>
+        <select class="field">
+          <option>释义有误</option>
+          <option>音标有误</option>
+          <option>例句有误 / 缺失</option>
+          <option>词性标注问题</option>
+          <option>其他</option>
+        </select>
+      </div>
+      <div class="form-item">
+        <label>补充说明（选填）</label>
+        <textarea class="field" rows="3" placeholder="例如：该义项首条应为‘坚持的’，第二个义项顺序需调整…"></textarea>
+      </div>
+      <div class="btn-row" style="justify-content:flex-end;">
+        <a class="btn btn-ghost" href="06_today.html">取消</a>
+        <a class="btn btn-primary" href="06_today.html">提交</a>
+      </div>
+      <p style="font-size:11px; color:var(--gray-4); margin-top:8px;">提交即进入运营审核队列，修正后全站生效。埋点：feedback_submit。</p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer"><div class="wrap"><span>纠错反馈（FR-10 / F10）</span><span>运营后台极简表格即可（MVP）</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>缺席回归 · 分批容错</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px · 积压卡片上方为安正文案</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <nav class="topnav">
+      <a href="06_today.html"><b>今日</b></a>
+      <a href="11_stats.html">统计</a>
+      <a href="12_settings.html">设置</a>
+    </nav>
+    <div class="spacer"></div>
+    <span class="user-pill">stu@example.com</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="crumbs">今日 / 缺席回归</div>
+  <div class="page-title"><h1>欢迎回来</h1><span class="sub">休息了 5 天，我们帮你把节奏接上</span></div>
+
+  <div class="note">
+    <b>FR-07 缺席分批容错：</b>回归是流失率最高的时刻，全程<b>无任何惩罚性文案或降级</b>。积压统计：到期未复习 X；若 X ≤ 每日复习上限（默认 = 每日新词数 × 3 = 60）全部并入今日；否则按上限分批摊开，今日只消化第一批，其余顺延，直到追平。缺席 ≥30 天仅保留在学词与熟词表。
+  </div>
+
+  <section class="card" style="max-width:680px; margin:0 auto;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h2 style="font-size:17px;">积压与安排</h2>
+      <span class="tag tag-green">分批容错 · 无惩罚</span>
+    </div>
+
+    <div style="display:flex; gap:16px; margin-top:16px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:140px; border:1px solid var(--gray-2); border-radius:8px; padding:14px; text-align:center;">
+        <div style="font-size:26px; font-weight:700;">45</div>
+        <div style="font-size:12px; color:var(--gray-5);">累积到期复习</div>
+      </div>
+      <div style="flex:1; min-width:140px; border:1px solid var(--gray-2); border-radius:8px; padding:14px; text-align:center;">
+        <div style="font-size:26px; font-weight:700;">3</div>
+        <div style="font-size:12px; color:var(--gray-5);">分成批次（每批 ≤ 上限）</div>
+      </div>
+      <div style="flex:1; min-width:140px; border:1px dashed var(--accent); border-radius:8px; padding:14px; text-align:center; background:var(--accent-soft);">
+        <div style="font-size:26px; font-weight:700; color:var(--accent);">15</div>
+        <div style="font-size:12px; color:var(--gray-5);">今日先消化这批</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px; color:var(--gray-5); margin-top:14px;">
+      剩下的 30 个会自动顺延到明后天，每天各 15 个，几天就追平了。慢慢来，不赶。
+    </p>
+
+    <div class="btn-row">
+      <a class="btn btn-primary btn-lg" href="08_review.html">先复习（15）</a>
+      <a class="btn btn-lg" href="07_new_word.html">先学新词（20）</a>
+    </div>
+    <p style="font-size:12px; color:var(--gray-4); margin-top:10px;">
+      回归当日不想复习 → 允许先学新词（FR-07 边界：跳过复习入口不影响荣誉）。
+    </p>
+  </section>
+
+  <div class="note" style="max-width:680px; margin:14px auto 0;">
+    <b>验收（FR-07）：</b>缺席 7 天回归首日任务量不超过上限；全流程无「放弃」引导式文案。
+    注意：若 45 到期 ≤ 60 上限，则不会出现分批提示，全部并入今日（正常态，见 06_today）。
+  </div>
+</main>
+
+<footer class="footer"><div class="wrap"><span>缺席回归 · 分批容错（FR-07 / F7）</span><span>埋点：缺席回归率（9.1）</span></div></footer>
+</body>
+</html>

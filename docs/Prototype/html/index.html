@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>原型流程总览 · 英语学习网站 MVP 低保真线框</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints">
+  <span><b>桌面优先</b> 主画布 1440px · 低保真线框</span>
+  <span>页面文件：<b>00 ~ 14</b> 共 15 个页面 + 本流程总览</span>
+</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型 · 流程总览</small></div>
+    <nav class="topnav">
+      <a href="00_landing.html">打开落地页</a>
+      <a href="06_today.html">今日首页</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="page-title">
+    <h1>原型走查总览</h1>
+    <span class="sub">低保真线框 · 对应 PRD v0.1 · 桌面 1440px 优先（各页顶部有断点标注）</span>
+  </div>
+
+  <section class="section">
+    <h2>6 条核心流程走查 <small>点击卡片内链接逐页走查</small></h2>
+    <div class="grid g-2">
+
+      <div class="card flow-card">
+        <span class="tag tag-blue">流程 1 · 首学漏斗</span>
+        <h3 style="margin:8px 0 4px;">发现了 → 记住了 → 留下来</h3>
+        <p class="steps">
+          <a href="00_landing.html">落地页</a> →
+          <a href="01_book_detail.html">词书详情（SEO）</a> →
+          <a href="02_guest_trial.html">游客试学 5 词</a> →
+          <a href="03_signup.html">注册（合并进度）</a> →
+          <a href="05_onboarding.html">首次设置</a> →
+          <a href="06_today.html">今日首页</a>
+        </p>
+        <p style="font-size:12px; color:var(--gray-5);">PRD 4.1 · 首学漏斗 ≥60% 关键：注册门槛在第一次正反馈之后。</p>
+      </div>
+
+      <div class="card flow-card">
+        <span class="tag tag-blue">流程 2 · 每日学习</span>
+        <h3 style="margin:8px 0 4px;">先复习 → 再新词 → 打卡</h3>
+        <p class="steps">
+          <a href="06_today.html">今日首页</a> →
+          <a href="08_review.html">复习（四选一）</a> →
+          <a href="07_new_word.html">新词学习</a> →
+          <a href="09_done.html">当日完成 / 打卡</a>
+        </p>
+        <p style="font-size:12px; color:var(--gray-5);">PRD 4.2 · FR-03/08 · 一次点击进入有效任务；退出实时续接。</p>
+      </div>
+
+      <div class="card flow-card">
+        <span class="tag tag-blue">流程 3 · 新词自评循环</span>
+        <h3 style="margin:8px 0 4px;">不认识的词本轮必重现</h3>
+        <p class="steps">
+          <a href="07_new_word.html">三态自评决策</a> →
+          <span class="kbd">认识</span> L2 (3) ·
+          <span class="kbd">模糊</span> L1 (1) ＋ 本轮重现 ·
+          <span class="kbd">不认识</span> 轮末重现至记成
+        </p>
+        <p style="font-size:12px; color:var(--gray-5);">PRD 4.3 · FR-04 · 保证每次学习都发生记忆。</p>
+      </div>
+
+      <div class="card flow-card">
+        <span class="tag tag-blue">流程 4 · 复习与间隔决策</span>
+        <h3 style="margin:8px 0 4px;">客观四选一 · 答错回队尾</h3>
+        <p class="steps">
+          <a href="08_review.html">四选一作答</a> →
+          <span class="kbd">正确</span> 等级 +1 按间隔表排下次 →
+          <span class="kbd">错误</span> 等级清零 · 回今日队尾 · 明日优先
+        </p>
+        <p style="font-size:12px; color:var(--gray-5);">PRD 4.4 · FR-05/06 · 防偷看（绝不显示释义）。</p>
+      </div>
+
+      <div class="card flow-card">
+        <span class="tag tag-blue">流程 5 · 缺席回归容错</span>
+        <h3 style="margin:8px 0 4px;">积压分批 · 无惩罚</h3>
+        <p class="steps">
+          <a href="06_today.html">今日首页（积压态）</a> →
+          <a href="10_backlog.html">分批容错面板</a> →
+          先复习第一批 / 先学新词均可
+        </p>
+        <p style="font-size:12px; color:var(--gray-5);">PRD 4.5 · FR-07 · 回归首日任务量 ≤ 上限；禁止「放弃」式文案。</p>
+      </div>
+
+      <div class="card flow-card">
+        <span class="tag tag-blue">流程 6 · 词书切换</span>
+        <h3 style="margin:8px 0 4px;">多词书并行 · 进度独立</h3>
+        <p class="steps">
+          <a href="13_books.html">词书列表</a> →
+          <a href="07_new_word.html">新书从第 1 词开始</a> →
+          <a href="11_stats.html">统计页合并展示</a> ·
+          <a href="12_settings.html">设置页管理</a>
+        </p>
+        <p style="font-size:12px; color:var(--gray-5);">PRD 4.6 · FR-11 · 切回旧书进度分毫不丢。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>全部页面索引 <small>15 个页面 + 本总览</small></h2>
+    <table class="spec">
+      <tr><th>#</th><th>页面</th><th>对应 PRD</th><th>状态 / 变体</th></tr>
+      <tr><td>00</td><td><a href="00_landing.html">落地页</a></td><td>对外获客</td><td>游客态</td></tr>
+      <tr><td>01</td><td><a href="01_book_detail.html">词书详情页（SEO）</a></td><td>FR-10</td><td>公开态 · 全量词表需注册</td></tr>
+      <tr><td>02</td><td><a href="02_guest_trial.html">游客试学 5 词</a></td><td>FR-01</td><td>试学中 · 第 5 词后注册引导</td></tr>
+      <tr><td>03</td><td><a href="03_signup.html">注册</a></td><td>FR-01</td><td>含游客进度合并选项</td></tr>
+      <tr><td>04</td><td><a href="04_login.html">登录</a></td><td>FR-01</td><td>多设备进度服务端为准</td></tr>
+      <tr><td>05</td><td><a href="05_onboarding.html">首次设置</a></td><td>FR-02</td><td>三步向导 · 默认 20 词</td></tr>
+      <tr><td>06</td><td><a href="06_today.html">今日首页</a></td><td>FR-03 / FR-08</td><td>正常态 · 空态变体 · 主按钮规则</td></tr>
+      <tr><td>07</td><td><a href="07_new_word.html">新词学习</a></td><td>FR-04</td><td>三态自评 · 本轮待巩固</td></tr>
+      <tr><td>08</td><td><a href="08_review.html">复习四选一</a></td><td>FR-05 / FR-06</td><td>防偷看 · 答错回队尾</td></tr>
+      <tr><td>09</td><td><a href="09_done.html">当日完成 / 打卡</a></td><td>FR-08</td><td>streak +1 · 明日预告</td></tr>
+      <tr><td>10</td><td><a href="10_backlog.html">缺席回归 · 分批容错</a></td><td>FR-07</td><td>积压 > 上限 场景</td></tr>
+      <tr><td>11</td><td><a href="11_stats.html">进度统计</a></td><td>FR-09</td><td>核心数字 · 词书进度 · 热力图 · 间隔表</td></tr>
+      <tr><td>12</td><td><a href="12_settings.html">学习设置</a></td><td>FR-02 / FR-06</td><td>间隔规则透明 · V2 灰置</td></tr>
+      <tr><td>13</td><td><a href="13_books.html">词书列表 / 切换</a></td><td>FR-11</td><td>多词书并行</td></tr>
+      <tr><td>14</td><td><a href="14_feedback.html">纠错反馈弹层</a></td><td>FR-10</td><td>位置快照 · 两步提交</td></tr>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>线框约定说明</h2>
+    <div class="card">
+      <ul style="margin-left:18px; font-size:13px; color:var(--gray-5);">
+        <li>黄色虚线框 = <b>线框注释</b>：状态标注 / 验收标准 / 交互说明（交付后移除）</li>
+        <li>蓝色 = 唯一强调色；其余全部灰阶，低保真阶段不做视觉细化</li>
+        <li>所有数据为<b>示意数据</b>（示例词表、示例进度），正式数据以后端为准</li>
+        <li>与 Figma 搭建规格（figma/figma_spec.md）一一对应，可直接照谱复刻</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>英语学习网站 · MVP 低保真原型 v0.1 · 对应《PRD_英语学习网站MVP》</span>
+    <span>校验：tools/verify_prototype.py</span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>词书详情页（公开/SEO） · 四级核心</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints">
+  <span>桌面 1440px 主画布</span><span>768px → 双栏改单栏</span><span>360px → 词条预览收折为「仅前 3 词」</span>
+</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <nav class="topnav">
+      <a href="00_landing.html">首页</a>
+      <a href="13_books.html">词书</a>
+      <a href="06_today.html">我的学习</a>
+    </nav>
+    <div class="spacer"></div>
+    <span class="user-pill">游客 · <a href="04_login.html">登录</a></span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="crumbs">首页 / 词书 / 四级核心</div>
+  <div class="note">
+    <b>对外公开页（SEO 友好）：</b>未登录也可完整查看词书信息与前缀词条预览，用于搜索引擎收录与获客（PRD 用户旅程「接触」阶段）。公开页面不暴露整本书词表，仅展示高频前 N 词（约 10-20 词）。
+  </div>
+
+  <section class="grid g-main" style="margin-top: 12px;">
+    <div>
+      <div class="card">
+        <h1 style="font-size: 26px;">四级核心</h1>
+        <p style="color: var(--gray-5); margin-top: 6px;">面向大学英语四级考试（CET-4）的高频核心词，按真实语料词频降序排列——先背最常考的。</p>
+        <div style="margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap;">
+          <span class="tag tag-blue">P0 · 推荐</span>
+          <span class="tag">约 2500 词</span>
+          <span class="tag">每日 20 词 → 约 125 天</span>
+          <span class="tag">难度：入门</span>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-primary btn-lg" href="02_guest_trial.html">立即开始学习</a>
+          <a class="btn btn-lg" href="03_signup.html">注册后建立专属进度</a>
+        </div>
+      </div>
+
+      <div class="card section">
+        <h2 style="font-size:15px;">词条预览 <small style="color:var(--gray-4)">公开页仅展示高频前列（示意数据，正式数据抽检准确率 ≥99% 后上线）</small></h2>
+        <table class="spec" style="margin-top:10px;">
+          <tr><th>单词</th><th>音标</th><th>词性</th><th>释义</th><th>高频位次</th></tr>
+          <tr><td>abandon</td><td>/əˈbændən/</td><td>v.</td><td>放弃；抛弃</td><td>#1</td></tr>
+          <tr><td>ability</td><td>/əˈbɪləti/</td><td>n.</td><td>能力；才能</td><td>#2</td></tr>
+          <tr><td>absorb</td><td>/əbˈzɔːb/</td><td>v.</td><td>吸收；使专注</td><td>#3</td></tr>
+          <tr><td>abstract</td><td>/ˈæbstrækt/</td><td>adj./n.</td><td>抽象的；摘要</td><td>#4</td></tr>
+          <tr><td>abundant</td><td>/əˈbʌndənt/</td><td>adj.</td><td>丰富的；充裕的</td><td>#5</td></tr>
+        </table>
+        <p style="font-size:12px; color:var(--gray-4); margin-top:8px;">完整词表注册后解锁，按记忆进度逐步发放。</p>
+      </div>
+    </div>
+
+    <aside>
+      <div class="card">
+        <h3 style="font-size:15px; margin-bottom:10px;">数据来源与许可</h3>
+        <p style="font-size:12px; color:var(--gray-5);">
+          词条基于开源词汇表（技术方案阶段选定，如 ECDICT 候选）。
+          提示：需核对许可证（如 CC-BY-SA）并按要求署名（PRD 7.5 合规）。
+        </p>
+        <div class="btn-row"><a class="btn" href="14_feedback.html">发现错误？提交纠错</a></div>
+      </div>
+      <div class="card section" style="margin-top:16px;">
+        <h3 style="font-size:15px; margin-bottom:10px;">为什么按词频排序</h3>
+        <p style="font-size:13px; color:var(--gray-5);">字母序词表让人最先背到不常用的词；
+        按词频降序，获得感前置，看到“最该背的词已经在背了”。</p>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>词书详情页（公开/SEO）</span>
+    <span>数据来源声明占位 · 按开源许可要求署名</span>
+  </div>
+</footer>
+</body>
+</html>

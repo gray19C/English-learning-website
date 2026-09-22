@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>复习（四选一自测）· 英语学习网站</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px · 复习卡 + 四选项 ≤620px 居中</span><span>360px → 选项两列堆叠</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <nav class="topnav">
+      <a href="06_today.html"><b>今日</b></a>
+      <a href="11_stats.html">统计</a>
+      <a href="12_settings.html">设置</a>
+    </nav>
+    <div class="spacer"></div>
+    <span class="user-pill">stu@example.com</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="crumbs">今日 / 复习 <span style="color:var(--gray-4)">· 四级核心</span></div>
+  <div class="page-title">
+    <h1>复习</h1>
+    <span class="sub">本轮 7 / 21 · 答对 6 · 待复习 14</span>
+  </div>
+
+  <div class="note">
+    <b>FR-05 设计要点：</b>复习模式<b>绝不出现释义（防偷看）</b>，只展示单词 + 音标，四选一客观作答。答错 → 记忆等级清零、回今日队尾直至答对；答对 → 等级 +1，按间隔表排下次复习。干扰项随机取自同词书其他词条释义，保证互不雷同。
+  </div>
+
+  <section class="card" style="max-width:620px; margin:0 auto; padding:24px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span class="tag">L2 → 3 天后复习</span>
+      <span style="font-size:12px; color:var(--gray-4);">作答后即显示间隔反馈（间隔透明）</span>
+    </div>
+
+    <div class="word-card" style="margin-top:16px; padding:40px 32px;">
+      <div class="word">persistent</div>
+      <div class="phonetic">/pəˈsɪstənt/ · adj.</div>
+    </div>
+
+    <div class="choice-list" style="margin-top:18px;">
+      <div class="choice">① 坚持的；持续存在的 <span class="mark">○</span></div>
+      <div class="choice">② 荒谬的；不合理的 <span class="mark">○</span></div>
+      <div class="choice">③ 神秘的；难以理解的 <span class="mark">○</span></div>
+      <div class="choice">④ 保守的；守旧的 <span class="mark">○</span></div>
+    </div>
+    <p style="text-align:center; font-size:12px; color:var(--gray-4); margin-top:14px;">
+      [点击选项后反馈] 答对 → 间隔表升级展示 · 答错 → 标注正确答案并可查看词卡详情，词回队尾明日优先
+    </p>
+
+    <div class="btn-row" style="justify-content:center; margin-top:14px;">
+      <a class="btn" href="08_review.html">进入下一词</a>
+      <a class="btn btn-ghost" href="06_today.html">退出（已作答已提交）</a>
+    </div>
+  </section>
+
+  <div class="note" style="max-width:620px; margin:16px auto 0;">
+    <b>状态标注：</b>答错词当日必再出现一次（验收 FR-05）。本轮答对累计展示在顶部已有（7/21）。本页为「四选一」客观评测，学习自评（07）与复习客观评测（08）是两种不同闭环。
+  </div>
+</main>
+
+<footer class="footer"><div class="wrap"><span>复习页（FR-05 / F5 / F6）</span><span>间隔规则全透明：1/3/7/14/30 天见 12_settings 与 11_stats</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>注册 <英语学习网站></title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px · 注册表单居中卡片 ≤480px</span><span>360px → 全宽表单</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <div class="spacer"></div>
+    <span class="user-pill">已有账号？<a href="04_login.html">登录</a></span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="note" style="max-width:480px; margin:16px auto;">
+    <b>验收标准（FR-01）：</b>注册流程从表单提交到进入今日首页 ≤ 3 个步骤；注册后游客进度可保留或合并，数据不丢失。
+  </div>
+
+  <section class="card" style="max-width:480px; margin:0 auto;">
+    <h1 style="font-size:22px; margin-bottom:4px;">注册</h1>
+    <p style="color:var(--gray-5); font-size:13px; margin-bottom:18px;">1 分钟完成 · 游客试学进度可无缝合并</p>
+
+    <div class="form-item">
+      <label>邮箱</label>
+      <input class="field" type="email" placeholder="you@example.com">
+      <p style="font-size:12px; color:var(--gray-4); margin-top:4px;">格式校验（待与技术评审：是否同时支持邮箱验证码）</p>
+    </div>
+    <div class="form-item">
+      <label>密码</label>
+      <input class="field" type="password" placeholder="≥ 6 位">
+      <p style="font-size:12px; color:var(--gray-4); margin-top:4px;">强度校验 ≥ 6 位（FR-01 业务规则）</p>
+    </div>
+
+    <div class="form-item" style="border:1px dashed var(--gray-3); border-radius:8px; padding:10px 12px; background:var(--gray-1);">
+      <label style="margin-bottom:2px;">检测到游客进度</label>
+      <label style="font-size:12px; color:var(--gray-5); font-weight:400;">
+        <input type="radio" name="merge" checked> 合并本地试学进度到本账号（推荐）
+      </label>
+      <label style="font-size:12px; color:var(--gray-5); font-weight:400;">
+        <input type="radio" name="merge"> 不合并，从零开始
+      </label>
+    </div>
+
+    <a class="btn btn-primary btn-lg btn-block" href="05_onboarding.html" style="margin-top:6px;">注册并选择词书</a>
+    <p style="text-align:center; font-size:12px; color:var(--gray-4); margin-top:12px;">
+      注册即代表同意进行学习进度云同步。
+    </p>
+  </section>
+
+  <div class="btn-row" style="justify-content:center; max-width:480px; margin:14px auto;">
+    <a class="btn" href="06_today.html">[跳过注册] 继续游客模式</a>
+  </div>
+</main>
+
+<footer class="footer"><div class="wrap"><span>注册页（FR-01）</span><span>密码加密存储 · 接口鉴权（8. 非功能需求）</span></div></footer>
+</body>
+</html>

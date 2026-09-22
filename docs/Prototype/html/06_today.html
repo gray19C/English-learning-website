@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日首页（任务面板）· 英语学习网站</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px 主画布</span><span>768px → 主栏宽度加大、统计移到底部</span><span>360px → 任务卡片全宽</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <nav class="topnav">
+      <a href="06_today.html"><b>今日</b></a>
+      <a href="11_stats.html">统计</a>
+      <a href="13_books.html">词书</a>
+      <a href="12_settings.html">设置</a>
+    </nav>
+    <div class="spacer"></div>
+    <span class="user-pill">stu@example.com</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="page-title">
+    <h1>今日</h1>
+    <span class="sub">2026-09-22 周二</span>
+    <div class="spacer" style="flex:1;"></div>
+    <span class="streak"><span class="flame">🔥</span><span class="days">5</span><small>连续天数</small></span>
+  </div>
+
+  <div class="note">
+    <b>状态标注：</b>本页展示 <b>正常态</b>。状态变体见下方 —— ① 无任务空态（复习空 → 主按钮变「学习新词」） ② 缺席回归积压态（跳转 10_backlog.html） ③ 当日全部完成态（跳转 09_done.html）。
+  </div>
+
+  <section class="grid g-main" style="margin-top:12px;">
+    <div>
+      <div class="card task-card">
+        <h2 style="font-size:15px; margin-bottom:4px;">今日任务</h2>
+        <p style="font-size:12px; color:var(--gray-5);">先复习（清积压）→ 再学新词。当日任务实时保存，中途退出下次续接。</p>
+
+        <div class="task-row">
+          <div>
+            <b>到期复习</b>
+            <span class="tag tag-warn" style="margin-left:8px;">有积压提示（当日会有）</span><br>
+            <span style="font-size:13px; color:var(--gray-5);">四级核心 · 21 个到期词，已答 6</span>
+          </div>
+          <div style="text-align:right;">
+            <div class="progress" style="width:160px; margin-left:auto;"><i style="width:28%"></i></div>
+            <small style="color:var(--gray-4)">6/21</small>
+          </div>
+        </div>
+
+        <div class="task-row">
+          <div>
+            <b>新词学习</b><br>
+            <span style="font-size:13px; color:var(--gray-5);">每日 20 个 · 从当前高频位次继续</span>
+          </div>
+          <div style="text-align:right;">
+            <div class="progress" style="width:160px; margin-left:auto;"><i style="width:0%"></i></div>
+            <small style="color:var(--gray-4)">0/20</small>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <a class="btn btn-primary btn-lg" href="08_review.html">先复习（21）</a>
+          <a class="btn btn-lg" href="07_new_word.html">学习新词（20）</a>
+        </div>
+        <p style="font-size:12px; color:var(--gray-4); margin-top:10px;">
+          主按钮规则（FR-03）：有到期复习 → 「先复习」；复习为空 → 「学习新词」；今日全完成 → 完成态（打卡）。
+        </p>
+      </div>
+
+      <div class="note" style="margin-top:16px;">
+        <b>变体 ① 无任务空态：</b>今日复习为空、新词已学完 → 主按钮隐藏，显示鼓励文案（非惩罚）：
+        「今天都完成了，很棒。」并可选择「<a href="07_new_word.html">预习明日词</a>」或直接结束。
+      </div>
+    </div>
+
+    <aside>
+      <div class="card">
+        <h3 style="font-size:15px; margin-bottom:10px;">本周打卡</h3>
+        <div class="heatmap">
+          <div class="cell"></div><div class="cell l1"></div><div class="cell l2"></div>
+          <div class="cell l2"></div><div class="cell l3"></div><div class="cell l3"></div>
+          <div class="cell" style="outline:2px solid var(--accent);"></div>
+        </div>
+        <p style="font-size:12px; color:var(--gray-5); margin-top:8px;">连续 5 天 · 今日待完成</p>
+      </div>
+      <div class="card section">
+        <h3 style="font-size:15px;">今日回顾</h3>
+        <p style="font-size:13px; color:var(--gray-5);">已掌握累计 <b>486</b> 词 · 在学 <b>23</b> 词</p>
+        <div class="btn-row"><a class="btn" href="11_stats.html">查看统计</a></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<footer class="footer"><div class="wrap"><span>今日首页（FR-03 / FR-08）</span><span>推荐跳转：签到完成 → 09_done.html</span></div></footer>
+</body>
+</html>

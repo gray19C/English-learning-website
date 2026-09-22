@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>首次设置（选词书 / 每日新词数 / 小目标）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px · 三步向导</span><span>360px → 步骤纵向堆叠</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <div class="spacer"></div>
+    <span class="tag tag-blue">首次设置</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="note" style="max-width:760px; margin:12px auto;">
+    <b>验收（FR-02）：</b>设置修改保存即生效（当日已生成任务不中断，配置次日生效）；全流程 ≤ 2 个页面跳转。默认每日新词数 20。页面总数 ≤ 3 步（注册 → 选词书 → 设置 → 今日首页）。
+  </div>
+
+  <section class="card" style="max-width:760px; margin:0 auto;">
+    <div style="display:flex; gap:8px; margin-bottom:20px;">
+      <span class="tag tag-blue">1 · 选词书</span>
+      <span class="tag">2 · 每日新词数</span>
+      <span class="tag">3 · 小目标（可选）</span>
+    </div>
+
+    <div class="form-item">
+      <label>目标词书（可多选，至少保留一本）</label>
+      <div class="opt-row">
+        <div class="opt sel" style="flex:1;">四级核心<br><small style="color:var(--gray-5)">约 2500 · 入门</small></div>
+        <div class="opt" style="flex:1;">六级<br><small style="color:var(--gray-5)">约 3500 · 标准</small></div>
+        <div class="opt" style="flex:1;">考研高频<br><small style="color:var(--gray-5)">约 3000 · 冲刺</small></div>
+      </div>
+    </div>
+
+    <div class="form-item">
+      <label>每日新词数（默认 20，修改次日生效）</label>
+      <div class="opt-row">
+        <div class="opt">10</div>
+        <div class="opt sel">20</div>
+        <div class="opt">30</div>
+        <div class="opt">50</div>
+        <div class="opt">自定义 <input type="number" style="width:48px; border:1px solid var(--gray-3); border-radius:4px; padding:2px 4px;"></div>
+      </div>
+    </div>
+
+    <div class="form-item">
+      <label>小目标（可选）— 只背某词书的前 N 词</label>
+      <div class="opt-row">
+        <div class="opt">整本书</div>
+        <div class="opt">前 500 词</div>
+        <div class="opt">前 1000 词</div>
+        <div class="opt">前 1500 词</div>
+      </div>
+      <p style="font-size:12px; color:var(--gray-4); margin-top:6px;">小目标仅影响完成基准，不影响词频排序（FR-02）；若小目标小于已学词数视为目标未完成，需提示调整。</p>
+    </div>
+
+    <a class="btn btn-primary btn-lg btn-block" href="06_today.html">完成设置 → 今日首页</a>
+  </section>
+</main>
+
+<footer class="footer"><div class="wrap"><span>首次设置向导（FR-02）</span><span>对应里程碑 M2 首学闭环</span></div></footer>
+</body>
+</html>

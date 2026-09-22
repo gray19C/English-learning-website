@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>游客试学（首 5 词） · 英语学习网站</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="breakpoints"><span>桌面 1440px 主画布</span><span>360px → 卡片全宽、按钮堆叠</span></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">英语学习网站 <small>MVP 低保真原型</small></div>
+    <div class="spacer"></div>
+    <span class="tag tag-blue">游客试学</span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="note">
+    <b>流程定位（FR-01 · 首学漏斗）：</b>注册门槛放在「第一次记住一个词」之后。本轮为「游客试学 5 词」，进度存浏览器本地；学满 5 词后出现注册引导，本地进度可无缝合并到账号。
+  </div>
+
+  <section class="card" style="max-width: 720px; margin: 20px auto;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+      <span class="tag tag-blue">本词书：四级核心 · 高频先行</span>
+      <span>本轮进度 <b>2 / 5</b></span>
+    </div>
+    <div class="progress"><i style="width:40%"></i></div>
+
+    <div class="word-card" style="margin-top:22px;">
+      <div class="word">abandon</div>
+      <div class="phonetic">/əˈbændən/ · v.</div>
+      <div class="def">放弃；抛弃</div>
+      <div class="example">He had to abandon the plan due to lack of funds.</div>
+    </div>
+
+    <div class="btn-row" style="justify-content:center; margin-top:22px;">
+      <a class="btn btn-lg" href="02_guest_trial.html">认识</a>
+      <a class="btn btn-lg" href="02_guest_trial.html">模糊</a>
+      <a class="btn btn-lg btn-primary" href="02_guest_trial.html">不认识</a>
+    </div>
+    <p style="text-align:center; font-size:12px; color:var(--gray-5); margin-top:10px;">
+      三态自评释义：<b>认识</b>→复习间隔 3 天 · <b>模糊</b>→1 天后复习 · <b>不认识</b>→本轮末自动重现，直到记成认识或模糊
+    </p>
+    <p style="text-align:center; font-size:12px; color:var(--gray-4); margin-top:6px;">
+      已选「不认识」<b>1</b> 个词，将在本轮结尾重现（设计要点：单轮内必记住，确保每次学习都发生记忆）
+    </p>
+  </section>
+
+  <section class="note" style="max-width:720px; margin:0 auto;">
+    <b>1 / 5 词 → 端点跳转：</b>选完第 5 词后进入「注册引导」——这是首学漏斗的转化点（对应 PRD 场景 B）。
+  </section>
+  <div class="btn-row" style="justify-content:center; margin:16px auto; max-width:720px;">
+    <a class="btn btn-primary btn-lg" href="03_signup.html">[第 5 词完成后] 注册保存进度</a>
+    <a class="btn" href="06_today.html">[暂不注册] 以游客继续</a>
+  </div>
+</main>
+
+<footer class="footer"><div class="wrap"><span>游客试学页</span><span>游客进度存 localStorage，注册后可选合并（FR-01）</span></div></footer>
+</body>
+</html>
