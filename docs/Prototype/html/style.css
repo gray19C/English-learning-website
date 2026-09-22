@@ -79,6 +79,20 @@ footer.footer {
 }
 .footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
+/* ---- PRD 对照标注条（每页顶部标准化，依据 PRD_prototype_mapping.md） ---- */
+.prd-ref {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #3730a3;
+  border-radius: 0 0 8px 8px;
+  padding: 6px 24px;
+  font-size: 12px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.prd-ref b { color: #312e81; }
+
 /* ---- 网格 ---- */
 .grid { display: grid; gap: 16px; }
 .g-2 { grid-template-columns: repeat(2, 1fr); }

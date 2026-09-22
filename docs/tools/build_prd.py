@@ -79,6 +79,10 @@ def quote_para(doc, text):
 
 
 def add_image(doc, alt, path):
+    is_proto = "prototype" in path
+    caption = alt
+    if is_proto and not alt.startswith("原型"):
+        caption = "原型线框图：" + alt
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run = p.add_run()
@@ -86,8 +90,8 @@ def add_image(doc, alt, path):
     p.paragraph_format.space_after = Pt(2)
     cap = doc.add_paragraph()
     cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = cap.add_run(alt)
-    set_font(r, size=9, color=(0x66, 0x66, 0x66))
+    r = cap.add_run(caption)
+    set_font(r, size=9, color=((0x1F, 0x4E, 0x79) if is_proto else (0x66, 0x66, 0x66)))
     cap.paragraph_format.space_after = Pt(10)
 
 
